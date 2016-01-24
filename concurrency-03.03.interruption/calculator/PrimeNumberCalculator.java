@@ -1,0 +1,45 @@
+package calculator;
+import java.util.*;
+
+public class PrimeNumberCalculator implements Runnable {
+	private List<Integer> primeNumbers = new ArrayList<Integer>();
+	private int size;
+	
+	public PrimeNumberCalculator(int i) { size = i; }
+	
+	public void run() {
+        Thread.currentThread().setName("PrimeNumberCalculator");
+		System.out.println(Thread.currentThread().getName()+": ... calculating prime numbers ...");
+		boolean[] sieve = new boolean[size];
+	
+		// set all positions in sieve to true, 
+		// i.e. mark all numbers as potential prime numbers
+		for (int i=0; i<size; i++)
+			sieve[i] = true;
+			
+		for (int currentPrime=2; currentPrime<size; ) {
+			
+			// eliminate from sieve all multiples of the current prime number
+			for (int j=2; currentPrime*j < size; j++)
+				sieve[currentPrime*j] = false;
+			
+			// find next prime number
+			int nextPrime;
+			for (nextPrime=currentPrime+1; nextPrime<size; nextPrime++)	
+			   if (sieve[nextPrime])  {
+			   	currentPrime=nextPrime;
+			   	break;
+			   }
+			if (nextPrime==size)  break; 
+		}
+		
+		for (int i=2;i<sieve.length;i++) {
+			if(sieve[i]) primeNumbers.add(new Integer(i));
+		}	
+	}
+	public synchronized List<Integer> getResult() { return primeNumbers; }
+	public boolean isCancelled() { 
+		... to be done ... 
+		return false;
+	}
+}

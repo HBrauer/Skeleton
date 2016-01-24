@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="concurrency-01.01.threadsafety"/>
+	<classpathentry kind="src" path="concurrency-01.02.threadcreation"/>
+	<classpathentry kind="src" path="concurrency-01.03.threadresult/partA"/>
+	<classpathentry kind="src" path="concurrency-01.03.threadresult/partB"/>
+	<classpathentry kind="src" path="concurrency-02.01.explicitlock"/>
+	<classpathentry kind="src" path="concurrency-02.05.producerconsumer.1"/>
+	<classpathentry kind="src" path="concurrency-02.06.explicitconditions"/>
+	<classpathentry kind="src" path="concurrency-02.07.readwritelock"/>
+	<classpathentry kind="src" path="concurrency-02.08.monitoring"/>
+	<classpathentry kind="src" path="concurrency-02.09.boundedset/src"/>
+	<classpathentry kind="src" path="concurrency-02.10.producerconsumer.2/src"/>
+	<classpathentry kind="src" path="concurrency-02.11.cache/src"/>
+	<classpathentry kind="src" path="concurrency-02.12.atomicvar/src"/>
+	<classpathentry kind="src" path="concurrency-02.13.boundedset-test/src"/>
+	<classpathentry kind="src" path="concurrency-03.01.taskcompletion/PartA-C/src"/>
+	<classpathentry kind="src" path="concurrency-03.01.taskcompletion/PartE/src"/>
+	<classpathentry kind="src" path="concurrency-03.02.producerconsumer.3/partA&amp;B/src"/>
+	<classpathentry kind="src" path="concurrency-03.02.producerconsumer.3/partC/src"/>
+	<classpathentry kind="src" path="concurrency-03.03.interruption"/>
+	<classpathentry kind="src" path="concurrency-03.04.shutdown/src"/>
+	<classpathentry kind="src" path="concurrency-03.05.exceptions"/>
+	<classpathentry kind="src" path="concurrency-03.06.completionservice"/>
+	<classpathentry kind="src" path="concurrency-03.07.watchdog"/>
+	<classpathentry kind="src" path="concurrency-03.08.threadfactory/src"/>
+	<classpathentry kind="src" path="concurrency-03.09.timingpool/src/src"/>
+	<classpathentry kind="src" path="concurrency-03.10.boundedpool/src"/>
+	<classpathentry kind="src" path="concurrency-03.11.trackingpool/src"/>
+	<classpathentry kind="src" path="concurrency-03.12.stripedpool/src"/>
+	<classpathentry kind="src" path="concurrency-05.JvmProfilingTools/src"/>
+	<classpathentry kind="src" path="concurrency-06.FunctionalHotSpots/src"/>
+	<classpathentry kind="src" path="concurrency-07.ObjectCreationHotSpots/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
