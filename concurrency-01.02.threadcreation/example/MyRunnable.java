@@ -2,6 +2,8 @@ package example;
 
 class MyRunnable implements Runnable
 {
+	
+
     public void run()
     {
         for (;;)

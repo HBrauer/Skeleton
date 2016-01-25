@@ -15,51 +15,81 @@ package search;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import test.FakeModifier;
 
 public class MyCollection {
-    private Collection<ElementType> col  = CollectionProvider.makeCollection(); 
-    
+	private Collection<ElementType> data = CollectionProvider.makeCollection();
+
+	private Lock lock = new ReentrantLock();
+
 	public int size() {
-		return col.size();
+		lock.lock();
+		try {
+			return data.size();
+		} finally {
+			lock.unlock();
+		}
 	}
 
 	public String toString() {
-		return col.toString();
+		lock.lock();
+		try {
+			return data.toString();
+		} finally {
+			lock.unlock();
+		}
 	}
 
 	public boolean remove(Predicate<ElementType> isInteresting) {
-		Iterator<ElementType> iter = col.iterator();
 		boolean found = false;
-		while (iter.hasNext()) {
-			ElementType buf = iter.next();
-			if (isInteresting.evaluate(buf)) {
-				found = true;
-				iter.remove();
+		lock.lock();
+		try {
+			Iterator<ElementType> iter = data.iterator();
+			while (iter.hasNext()) {
+				ElementType element = iter.next();
+				if (isInteresting.evaluate(element)) {
+					found = true;
+					synchronized (element) {
+						iter.remove();
+					}
+				}
 			}
+		} finally {
+			lock.unlock();
 		}
 		return found;
 	}
 
 	public boolean modify(Predicate<ElementType> isInteresting) {
 		boolean found = false;
-		ElementType buf = null;
-		Iterator<ElementType> iter = col.iterator();
-
-		while (iter.hasNext()) {
-			try {Thread.sleep(100);} catch (InterruptedException e) {}	// for test purposes only
-			buf = iter.next();
-			if (isInteresting.evaluate(buf)) {
-				found = true;
-				break;
+		ElementType element = null;
+		lock.lock();
+		try {
+			Iterator<ElementType> iter = data.iterator();
+			while (iter.hasNext()) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+				} // for test purposes only
+				element = iter.next();
+				if (isInteresting.evaluate(element)) {
+					found = true;
+					break;
+				}
+			}
+		} finally {
+			synchronized (element) {
+				lock.unlock();
+				if (found) {
+					// perform a time-consuming modification
+					FakeModifier.modify(element);
+				}
 			}
 		}
 
-		if (found) {				
-			// perform a time-consuming modification
-			FakeModifier.modify(col,buf);
-		}
 		return found;
 	}
 }
