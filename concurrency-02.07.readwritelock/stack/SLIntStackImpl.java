@@ -14,9 +14,73 @@
 */
 package stack;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.StampedLock;
+
 /*
- * implementation with  stamped lock and optimistic read
+ * implementation with read-write-lock
  */
 public class SLIntStackImpl implements IntStack {
-   ... to be done ...
+
+	private final int[] array;
+	private volatile int cnt = -1;
+
+	private StampedLock lock = new StampedLock();
+
+	public SLIntStackImpl(int sz) {
+		array = new int[sz];
+	}
+
+	@Override
+	public void push(int elm) {
+		long stamp = lock.writeLock();
+		try {
+			array[++cnt] = elm;
+		} finally {
+			lock.unlock(stamp);
+		}
+
+	}
+
+	@Override
+	public int pop() {
+		long stamp = lock.writeLock();
+		try {
+			if (cnt >= 0) {
+				return array[cnt--];
+			}
+		} finally {
+			lock.unlock(stamp);
+		}
+
+		throw new IndexOutOfBoundsException();
+	}
+
+	@Override
+	public int peek() {
+
+		long stamp;
+		do {
+			stamp = lock.tryOptimisticRead();
+			if (cnt >= 0) {
+				return array[cnt];
+			} else {
+				throw new IndexOutOfBoundsException();
+			}
+		} while (lock.validate(stamp));
+
+	}
+
+	@Override
+	public int size() {
+		return cnt;
+	}
+
+	@Override
+	public int capacity() {
+		return array.length;
+	}
+
 }

@@ -18,25 +18,37 @@ public class IntStackImpl implements IntStack {
 
 	private final int[] array;
 	private volatile int cnt = 0;
-	
-	public IntStackImpl (int sz) { array = new int[sz]; }
-	
-	synchronized public void push (int elm) { 
-	if (cnt < array.length) array[cnt++] = elm;
-	else throw new IndexOutOfBoundsException();
+
+	public IntStackImpl(int sz) {
+		array = new int[sz];
 	}
-	
-	synchronized public int pop () { 
-	if (cnt > 0) return(array[--cnt]);
-	else throw new IndexOutOfBoundsException();
+
+	synchronized public void push(int elm) {
+		if (cnt < array.length)
+			array[cnt++] = elm;
+		else
+			throw new IndexOutOfBoundsException();
 	}
-	
-	synchronized public int peek() { 
-	if (cnt > 0) return(array[cnt-1]);
-	else throw new IndexOutOfBoundsException();
+
+	synchronized public int pop() {
+		if (cnt > 0)
+			return (array[--cnt]);
+		else
+			throw new IndexOutOfBoundsException();
 	}
-	
-	public int size() { return cnt; }
-	
-	public int capacity() { return (array.length); }
+
+	synchronized public int peek() {
+		if (cnt > 0)
+			return (array[cnt - 1]);
+		else
+			throw new IndexOutOfBoundsException();
+	}
+
+	public int size() {
+		return cnt;
+	}
+
+	public int capacity() {
+		return (array.length);
+	}
 }

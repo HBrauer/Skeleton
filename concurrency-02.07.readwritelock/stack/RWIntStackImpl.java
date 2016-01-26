@@ -13,10 +13,78 @@
   "as is" without express or implied warranty.
 */
 package stack;
+
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 /*
  * implementation with read-write-lock
  */
 public class RWIntStackImpl implements IntStack {
 
- 	// ... to be done ...
+	private final int[] array;
+	private volatile int cnt = -1;
+
+	private final Lock readLock;
+
+	private final Lock writeLock;
+
+	public RWIntStackImpl(int sz) {
+		array = new int[sz];
+		ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
+		readLock = reentrantReadWriteLock.readLock();
+		writeLock = reentrantReadWriteLock.writeLock();
+	}
+
+	@Override
+	public void push(int elm) {
+		writeLock.lock();
+
+		try {
+			array[++cnt] = elm;
+		} finally {
+			writeLock.unlock();
+		}
+
+	}
+
+	@Override
+	public int pop() {
+		writeLock.lock();
+		try {
+			if (cnt >= 0) {
+				return array[cnt--];
+			} 
+		} finally {
+			writeLock.unlock();
+		}
+		
+		throw new IndexOutOfBoundsException();
+	}
+
+	@Override
+	public int peek() {
+		readLock.lock();
+		try {
+			if (cnt >= 0) {
+				return array[cnt];
+			} 
+		} finally {
+			readLock.unlock();
+		}
+		
+		throw new IndexOutOfBoundsException();
+	}
+
+	@Override
+	public int size() {
+		return cnt;
+	}
+
+	@Override
+	public int capacity() {
+		return array.length;
+	}
+
 }
