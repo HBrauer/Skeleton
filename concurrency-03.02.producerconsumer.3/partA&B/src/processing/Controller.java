@@ -3,6 +3,9 @@ package processing;
 
 import java.util.concurrent.*;
 
+import processing.Consumer;
+import processing.Producer;
+
 public final class Controller {
     private static final int NumberOfConsumers = 3;
     private static final int NumberOfProducers = 2;
