@@ -27,16 +27,16 @@ public final class Test {
     	 * verifies that the set's size is always within its limits, 
     	 * i.e. the set's size must be not be less than 0 and not greater than its size limit.
     	 */
-        TestForTreeSizeLimit.runTest(BoundedTreeSetWithoutSizeLimit.class);
-        TestForTreeSizeLimit.runTest(BoundedTreeSetWithoutExceptionHandling.class);
-        TestForTreeSizeLimit.runTest(BoundedTreeSetWithoutSynchronization.class);
-        TestForTreeSizeLimit.runTest(BoundedTreeSetWithoutSortingOrder.class);
-        TestForTreeSizeLimit.runTest(BoundedTreeSet.class);
+//        TestForTreeSizeLimit.runTest(BoundedTreeSetWithoutSizeLimit.class);
+//        TestForTreeSizeLimit.runTest(BoundedTreeSetWithoutExceptionHandling.class);
+//        TestForTreeSizeLimit.runTest(BoundedTreeSetWithoutSynchronization.class);
+//        TestForTreeSizeLimit.runTest(BoundedTreeSetWithoutSortingOrder.class);
+//        TestForTreeSizeLimit.runTest(BoundedTreeSet.class);
         
         TestForBlockingState.runTest(BoundedTreeSetWithoutSizeLimit.class);
-        TestForBlockingState.runTest(BoundedTreeSetWithoutExceptionHandling.class);
-        TestForBlockingState.runTest(BoundedTreeSetWithoutSynchronization.class);
-        TestForBlockingState.runTest(BoundedTreeSetWithoutSortingOrder.class);
-        TestForBlockingState.runTest(BoundedTreeSet.class);
+//        TestForBlockingState.runTest(BoundedTreeSetWithoutExceptionHandling.class);
+//        TestForBlockingState.runTest(BoundedTreeSetWithoutSynchronization.class);
+//        TestForBlockingState.runTest(BoundedTreeSetWithoutSortingOrder.class);
+//        TestForBlockingState.runTest(BoundedTreeSet.class);
     }
 }
